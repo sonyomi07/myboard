@@ -1,0 +1,43 @@
+<html>
+    <head>
+        <title><%= title %></title>
+    </head>
+    <body>
+        <h1><%= title %></h1>
+        <table style="border-collapse: collapse; width: 100%;">
+            <thead>
+                <tr style="border-bottom: 1px solid #000;">
+                    <th style="text-align: left; padding: 8px;">날짜</th>
+                    <th style="text-align: left; padding: 8px;">파일이름</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% for (let i = 0; i < data.length; i++) { %>
+                    <tr>
+                        <td style="padding: 8px;"><%= data[i].upload_date %></td>
+                        <!-- <td style="padding: 8px;"><a href="<%= data[i].url %>"><%= data[i].filename %></a></td> -->
+                        <td style="padding: 8px; display: flex; justify-content: space-between;">
+                            <a href="#" onclick="showImage('<%= data[i].url %>')"><%= data[i].filename %></a>
+                            <button onclick="deletefile('<%= data[i].filename %>')">삭제</button>
+                        </td>
+                    </tr>
+                <% } %>
+            </tbody>
+        </table>
+        <div id="imageDisplay" style="margin-top: 20px;">
+            <img id="displayedImage" src="" alt="이미지" style="max-width: 100%; display: none;">
+        </div>
+        <script>
+            function showImage(imageSrc) {
+                var img = document.getElementById('displayedImage');
+                img.src = imageSrc;
+                img.style.display = 'block';
+            }
+            function deletefile(filename) {
+                if (confirm('정말로 삭제하시겠습니까?')) {
+                    location.href = '/delete?filename=' + filename;
+                }
+            }
+        </script>
+    </body>
+</html>
